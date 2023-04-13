@@ -26,11 +26,11 @@ class BusinessProfile extends Model
 
     public function businessRole()
     {
-        return $this->belongsTo(BusinessRole::class);
+        return $this->belongsTo(BusinessRole::class, 'role_id');
     }
 
     public function businessServices()
     {
-        return $this->hasMany(BusinessService::class);
+        return $this->hasMany(BusinessService::class, 'business_id');
     }
 }
