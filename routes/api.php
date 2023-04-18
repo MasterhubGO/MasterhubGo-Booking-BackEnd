@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ImageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,3 +20,5 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 });
 
 Route::get('/personal-cabinet', [\App\Http\Controllers\Cabinets\UserController::class, 'index']);
+
+Route::post('/sendimage', [ImageController::class, 'store'])->name('image.store');
