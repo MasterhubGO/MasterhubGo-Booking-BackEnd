@@ -6,6 +6,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Models\ProfileVisit;
+use App\Models\Publication;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -49,5 +51,19 @@ class User extends Authenticatable
         return $this->hasMany(BusinessProfile::class);
     }
 
+    public function visitedProfiles()
+    {
+        return $this->hasMany(ProfileVisit::class, 'visitor_id');
+    }
+
+    public function profileVisitors()
+    {
+        return $this->hasMany(ProfileVisit::class, 'visited_id');
+    }
+
+    public function profileVisitors()
+    {
+        return $this->hasMany(Publication::class);
+    }
 
 }
