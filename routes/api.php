@@ -30,3 +30,7 @@ Route::apiResource('/business-profile', \App\Http\Controllers\Cabinets\UserContr
 Route::post('/sendimage', [ImageController::class, 'store'])->name('image.store');
 
 Route::get('profile/{user}', [ProfileController::class, 'trackVisit'])->name('profile.visit');
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::apiResource('business-profile.comments', CommentController::class)->shallow();
+});
