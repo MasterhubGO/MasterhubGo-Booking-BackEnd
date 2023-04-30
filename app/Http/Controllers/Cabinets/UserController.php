@@ -16,7 +16,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        return new UserResource(User::find(Auth::id()));
+//        return new UserResource(User::find(Auth::id()));
+        return UserResource::collection(User::all());
     }
     public function update(UserUpdateRequest $request, string $id)
     {

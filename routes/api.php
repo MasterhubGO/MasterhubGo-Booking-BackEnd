@@ -20,6 +20,7 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
 });
 
+
 Route::apiResource('/personal-cabinet', \App\Http\Controllers\Cabinets\UserController::class)->only([
     'index', 'update', 'destroy'
 ]);
