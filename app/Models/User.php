@@ -56,14 +56,9 @@ class User extends Authenticatable
         return $this->hasMany(ProfileVisit::class, 'visitor_id');
     }
 
-    public function profileVisitors()
-    {
-        return $this->hasMany(ProfileVisit::class, 'visited_id');
-    }
-
-//   public function profileVisitors()
-//   {
-//       return $this->hasMany(Publication::class);
-//   }
+ //  public function profileVisitors()
+ //  {
+ //       return $this->hasMany(ProfileVisit::class, 'visited_id');
+ //  }
 
 }
