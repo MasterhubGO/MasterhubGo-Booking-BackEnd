@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Services\AuthSocial\SocialService;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 
@@ -20,6 +21,6 @@ class AuthSocialController extends Controller
         $getUser = Socialite::driver($provider)->user();
         $user = $socialService->firstOrCreateUser($getUser);
         Auth::login($user);
-        return redirect()->route('account');
+        return response($user, Response::HTTP_CREATED);
     }
 }

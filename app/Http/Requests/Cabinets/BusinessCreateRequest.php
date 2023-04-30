@@ -26,8 +26,8 @@ class BusinessCreateRequest extends FormRequest
         return [
             'user_id' => ['required', 'integer'],
             'role_id' => ['required', 'integer'],
-            'photo' => ['nullable', 'string'],
-            'banner' => ['nullable', 'string'],
+            'photo' => 'nullable|image|mimes:jpeg,png|max:5120',
+            'banner' => 'nullable|image|mimes:jpeg,png|max:5120',
             'phone' => ['nullable', 'string'],
             'personal_site' => ['nullable', 'string'],
             'services' => ['required', 'array']
