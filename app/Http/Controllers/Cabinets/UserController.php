@@ -15,7 +15,7 @@ class UserController extends Controller
 {
     /**
      * @OA\Get(
-     *      path="/personal-cabinet",
+     *      path="/api/personal-cabinet",
      *      operationId="personal-cabinet",
      *      security={{"bearerAuth":{}}},
      *      tags={"User"},
