@@ -43,7 +43,7 @@ class UserController extends Controller
 
     /**
      * @OA\Get(
-     *      path="/personal-cabinet/{id}",
+     *      path="/api/personal-cabinet/{id}",
      *      operationId="personal-cabinet-id",
      *      security={{"bearerAuth":{}}},
      *      tags={"User"},
@@ -85,7 +85,7 @@ class UserController extends Controller
 
     /**
      * @OA\Put(
-     *      path="/personal-cabinet/{id}",
+     *      path="/api/personal-cabinet/{id}",
      *      operationId="personal-cabinet-update",
      *      security={{"bearerAuth":{}}},
      *      tags={"User"},
@@ -141,7 +141,7 @@ class UserController extends Controller
 
     /**
      * @OA\Delete(
-     *      path="/personal-cabinet/{id}",
+     *      path="/api/personal-cabinet/{id}",
      *      operationId="personal-cabinet-delete",
      *      security={{"bearerAuth":{}}},
      *      tags={"User"},
