@@ -19,4 +19,4 @@ Route::get('/', function () {
 
 require __DIR__.'/auth.php';
 
-
+Route::get('/test', [\App\Http\Controllers\Auth\AuthenticatedSessionController::class, 'destroy']);

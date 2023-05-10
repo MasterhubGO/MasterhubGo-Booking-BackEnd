@@ -10,12 +10,155 @@
     },
     "servers": [
         {
-            "url": "http://127.0.0.1:8000/api",
+            "url": "http://127.0.0.1:8000/",
             "description": "Laravel Swagger API server"
         }
     ],
     "paths": {
-        "/personal-cabinet": {
+        "/login": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Authenticate a user",
+                "description": "Authenticates a user and returns the user data along with the authentication token",
+                "operationId": "loginUser",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/LoginRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "User authenticated successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "user": {
+                                            "$ref": "#/components/schemas/User"
+                                        },
+                                        "token": {
+                                            "description": "Authentication token",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "422": {
+                        "description": "Validation Error"
+                    }
+                }
+            }
+        },
+        "/logout": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Logout current user",
+                "description": "Logs out the currently authenticated user",
+                "operationId": "logoutUser",
+                "responses": {
+                    "200": {
+                        "description": "User logged out successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "User logged out successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/register": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Register a new user",
+                "description": "Creates a new user and returns the user data along with the authentication token",
+                "operationId": "registerUser",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RegisterRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "User registered successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "user": {
+                                            "$ref": "#/components/schemas/User"
+                                        },
+                                        "token": {
+                                            "description": "Authentication token",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "422": {
+                        "description": "Validation Error"
+                    }
+                }
+            }
+        },
+        "/api/personal-cabinet": {
             "get": {
                 "tags": [
                     "User"
@@ -48,7 +191,7 @@
                 ]
             }
         },
-        "/personal-cabinet/{id}": {
+        "/api/personal-cabinet/{id}": {
             "get": {
                 "tags": [
                     "User"
@@ -256,6 +399,74 @@
                 "xml": {
                     "name": "User"
                 }
+            },
+            "LoginRequest": {
+                "title": "Update User request",
+                "description": "Update user request body data",
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "name": {
+                        "title": "Name",
+                        "description": "Name",
+                        "type": "string",
+                        "example": "John"
+                    },
+                    "email": {
+                        "title": "Email",
+                        "description": "Email",
+                        "type": "string",
+                        "example": "example@example.com"
+                    },
+                    "password": {
+                        "title": "Password",
+                        "description": "Password",
+                        "type": "string",
+                        "example": "password"
+                    },
+                    "password_confirmation": {
+                        "title": "Password confirmation",
+                        "description": "Password confirmation",
+                        "type": "string",
+                        "example": "password"
+                    }
+                },
+                "type": "object"
+            },
+            "RegisterRequest": {
+                "title": "Update User request",
+                "description": "Update user request body data",
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "name": {
+                        "title": "Name",
+                        "description": "Name",
+                        "type": "string",
+                        "example": "John"
+                    },
+                    "email": {
+                        "title": "Email",
+                        "description": "Email",
+                        "type": "string",
+                        "example": "example@example.com"
+                    },
+                    "password": {
+                        "title": "Password",
+                        "description": "Password",
+                        "type": "string",
+                        "example": "password"
+                    },
+                    "password_confirmation": {
+                        "title": "Password confirmation",
+                        "description": "Password confirmation",
+                        "type": "string",
+                        "example": "password"
+                    }
+                },
+                "type": "object"
             },
             "UserUpdateRequest": {
                 "title": "Update User request",
