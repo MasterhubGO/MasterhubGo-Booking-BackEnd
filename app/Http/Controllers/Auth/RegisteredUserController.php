@@ -13,6 +13,35 @@ use Illuminate\Validation\Rules;
 
 class RegisteredUserController extends Controller
 {
+    /**
+     * @OA\Post(
+     *      path="/register",
+     *      operationId="registerUser",
+     *      tags={"Authentication"},
+     *      summary="Register a new user",
+     *      description="Creates a new user and returns the user data along with the authentication token",
+     *      @OA\RequestBody(
+     *          required=true,
+     *          @OA\JsonContent(ref="#/components/schemas/RegisterRequest")
+     *      ),
+     *      @OA\Response(
+     *          response=201,
+     *          description="User registered successfully",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="user", ref="#/components/schemas/User"),
+     *              @OA\Property(property="token", type="string", description="Authentication token")
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request"
+     *      ),
+     *      @OA\Response(
+     *          response=422,
+     *          description="Validation Error"
+     *      )
+     * )
+     */
 
     public function store(Request $request): Response
     {
@@ -32,6 +61,11 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return response($user, Response::HTTP_CREATED);
+        $token = $user->createToken($user->password)->plainTextToken;
+
+        return response([
+            'user' => $user,
+            'token' => $token,
+        ], Response::HTTP_CREATED);
     }
 }
