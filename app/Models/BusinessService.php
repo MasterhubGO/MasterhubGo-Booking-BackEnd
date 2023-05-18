@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class BusinessService extends Model
@@ -15,7 +16,7 @@ class BusinessService extends Model
         'business_id',
         'title',
         'price',
-        'currency',
+        'currency_id',
         'description',
         'duration',
         'is_field',
@@ -23,7 +24,7 @@ class BusinessService extends Model
 
 	protected $casts = [];
 
-    public function businessProfile()
+    public function businessProfile(): BelongsTo
     {
         return $this->belongsTo(BusinessProfile::class);
     }
@@ -36,5 +37,10 @@ class BusinessService extends Model
 	public function feedbacks(): HasMany
 	{
 		return $this->hasMany(BusinessServicesFeedback::class);
+	}
+
+	public function currency(): BelongsTo
+	{
+		return $this->belongsTo(Currency::class);
 	}
 }

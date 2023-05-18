@@ -32,6 +32,9 @@ Route::middleware('auth:sanctum')->group(function () {
     ]);
 });
 
+Route::apiResource('/currency', \App\Http\Controllers\Support\CurrencyController::class)
+	->only(['index', 'show']);
+
 
 Route::post('/sendimage', [ImageController::class, 'store'])->name('image.store');
 

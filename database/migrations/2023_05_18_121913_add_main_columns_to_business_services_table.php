@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::table('business_services', function (Blueprint $table) {
 			$table->renameColumn('service', 'title');
 			$table->unsignedBigInteger('price');
-			$table->string('currency', 10);
+			$table->foreignId('currency_id')->constrained('currencies')->cascadeOnDelete();
 			$table->text('description')->nullable();
 			$table->unsignedMediumInteger('duration');
 			$table->boolean('is_field');
@@ -27,7 +27,9 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('business_services', function (Blueprint $table) {
-            //
+            $table->dropColumn(['price', 'description', 'duration', 'is_field']);
+			$table->dropConstrainedForeignId('currency_id');
+			$table->renameColumn('title', 'service');
         });
     }
 };
