@@ -3,11 +3,12 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 use App\Models\ProfileVisit;
 use App\Models\Publication;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -46,25 +47,29 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function businesses()
+    public function businesses(): HasMany
     {
         return $this->hasMany(BusinessProfile::class);
     }
 
-    public function visitedProfiles()
+    public function visitedProfiles(): HasMany
     {
         return $this->hasMany(ProfileVisit::class, 'visitor_id');
     }
 
 
-    public function profileVisitors()
+    public function profileVisitors(): HasMany
     {
         return $this->hasMany(ProfileVisit::class, 'visited_id');
     }
 
-   public function Publications()
-   {
+    public function Publications(): HasMany
+    {
        return $this->hasMany(Publication::class);
-   }
+    }
 
+    public function feedbacks(): HasMany
+    {
+        return $this->hasMany(BusinessServicesFeedback::class);
+    }
 }
