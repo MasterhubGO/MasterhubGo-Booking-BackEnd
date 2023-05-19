@@ -158,6 +158,54 @@
                 }
             }
         },
+        "/api/service-feedbacks/{id}": {
+            "get": {
+                "tags": [
+                    "Service feedback"
+                ],
+                "summary": "Get service feedback information",
+                "description": "Returns service feedback data by id",
+                "operationId": "service-feedbacks-id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Service feedback id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BusinessServiceFeedback"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/personal-cabinet": {
             "get": {
                 "tags": [
@@ -341,10 +389,298 @@
                     }
                 ]
             }
+        },
+        "/api/currencies/": {
+            "get": {
+                "tags": [
+                    "Currency"
+                ],
+                "summary": "Get currencies list",
+                "description": "Returns currencies list",
+                "operationId": "currency",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CurrencyResource"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/currencies": {
+            "post": {
+                "tags": [
+                    "Currency"
+                ],
+                "summary": "Creates new currency",
+                "description": "Returns created currency data",
+                "operationId": "currency-create",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CurrencyCreateRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CurrencyResource"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation failed",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnprocessableContentResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/currencies/{id}": {
+            "get": {
+                "tags": [
+                    "Currency"
+                ],
+                "summary": "Get currency information",
+                "description": "Returns currency data by id",
+                "operationId": "currency-id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Currency id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Currency"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Currency"
+                ],
+                "summary": "Updates currency by id",
+                "description": "Returns updated currency",
+                "operationId": "currency-update",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Currency id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 1
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CurrencyUpdateRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CurrencyResource"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation failed",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnprocessableContentResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Currency"
+                ],
+                "summary": "Deletes currency by id",
+                "description": "Deletes currency by id",
+                "operationId": "currency-delete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Currency id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Created"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
         }
     },
     "components": {
         "schemas": {
+            "BusinessServiceFeedback": {
+                "title": "Service Feedback",
+                "description": "BusinessServiceFeedback model",
+                "properties": {
+                    "id": {
+                        "title": "ID",
+                        "description": "ID",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "alpha_code": {
+                        "title": "alpha_code",
+                        "description": "Alphabetical code",
+                        "type": "string",
+                        "example": "RUB"
+                    },
+                    "numeric_code": {
+                        "title": "Numeric code",
+                        "description": "Email",
+                        "type": "string",
+                        "example": ""
+                    },
+                    "fraction": {
+                        "title": "Created at",
+                        "description": "Created at",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2020-01-27 17:50:45"
+                    },
+                    "sign": {
+                        "title": "Updated at",
+                        "description": "Updated at",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2020-01-27 17:50:45"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Business Service Feedback"
+                }
+            },
+            "Currency": {
+                "title": "Currency",
+                "description": "Currency model. Implements country currency codes according to ISO 4217 standard",
+                "properties": {
+                    "id": {
+                        "title": "ID",
+                        "description": "ID",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "alpha_code": {
+                        "title": "Alpha code",
+                        "description": "Currency alphabetical code",
+                        "type": "string",
+                        "example": "RUB"
+                    },
+                    "numeric_code": {
+                        "title": "Numeric code",
+                        "description": "Currency numeric code",
+                        "type": "string",
+                        "example": "643"
+                    },
+                    "fraction": {
+                        "title": "Fraction",
+                        "description": "Number of fractional units (e.g. in dollar 100 cents)",
+                        "type": "integer",
+                        "format": "int32",
+                        "minimum": 0,
+                        "multipleOf": 10,
+                        "example": 100
+                    },
+                    "sign": {
+                        "title": "Sign",
+                        "description": "Currency sign",
+                        "type": "string",
+                        "example": "₽",
+                        "nullable": true
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Currency"
+                }
+            },
             "User": {
                 "title": "User",
                 "description": "User model",
@@ -399,6 +735,87 @@
                 "xml": {
                     "name": "User"
                 }
+            },
+            "CurrencyCreateRequest": {
+                "title": "Currency create request",
+                "description": "Creates currency",
+                "required": [
+                    "alpha_code",
+                    "numeric_code"
+                ],
+                "properties": {
+                    "alpha_code": {
+                        "title": "alpha_code",
+                        "description": "Alphabetical code",
+                        "type": "string",
+                        "maxLength": 3,
+                        "minLength": 3,
+                        "example": "BYN"
+                    },
+                    "numeric_code": {
+                        "title": "numeric_code",
+                        "description": "numeric code",
+                        "type": "string",
+                        "maxLength": 3,
+                        "minLength": 3,
+                        "example": "936"
+                    },
+                    "fraction": {
+                        "title": "fraction",
+                        "description": "Number of fractional units (e.g. in dollar 100 cents)",
+                        "type": "integer",
+                        "default": 100,
+                        "minimum": 0,
+                        "multipleOf": 10,
+                        "example": 100
+                    },
+                    "sign": {
+                        "title": "sign",
+                        "description": "Currency sign",
+                        "type": "string",
+                        "example": "₽"
+                    }
+                },
+                "type": "object"
+            },
+            "CurrencyUpdateRequest": {
+                "title": "Currency update request",
+                "description": "Updates currency",
+                "required": [],
+                "properties": {
+                    "alpha_code": {
+                        "title": "alpha_code",
+                        "description": "Alphabetical code",
+                        "type": "string",
+                        "maxLength": 3,
+                        "minLength": 3,
+                        "example": "BYN"
+                    },
+                    "numeric_code": {
+                        "title": "numeric_code",
+                        "description": "numeric code",
+                        "type": "string",
+                        "maxLength": 3,
+                        "minLength": 3,
+                        "example": "936"
+                    },
+                    "fraction": {
+                        "title": "fraction",
+                        "description": "Number of fractional units (e.g. in dollar 100 cents)",
+                        "type": "integer",
+                        "default": 100,
+                        "minimum": 0,
+                        "multipleOf": 10,
+                        "example": 100
+                    },
+                    "sign": {
+                        "title": "sign",
+                        "description": "Currency sign",
+                        "type": "string",
+                        "example": "₽"
+                    }
+                },
+                "type": "object"
             },
             "LoginRequest": {
                 "title": "Update User request",
@@ -502,6 +919,24 @@
                 },
                 "type": "object"
             },
+            "CurrencyResource": {
+                "title": "CurrencyResource",
+                "description": "Currency resource",
+                "properties": {
+                    "data": {
+                        "title": "Data",
+                        "description": "Data wrapper",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Currency"
+                        }
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "CurrencyResource"
+                }
+            },
             "UserResource": {
                 "title": "UserResource",
                 "description": "User resource",
@@ -518,6 +953,43 @@
                 "type": "object",
                 "xml": {
                     "name": "UserResource"
+                }
+            },
+            "UnprocessableContentResponse": {
+                "title": "UnprocessableContentResponse",
+                "description": "Response when validation failed",
+                "properties": {
+                    "message": {
+                        "title": "message",
+                        "description": "Error message",
+                        "type": "string"
+                    },
+                    "errors": {
+                        "$ref": "#/components/schemas/UnprocessableContentResponseError"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "UnprocessableContentResponse"
+                }
+            },
+            "UnprocessableContentResponseError": {
+                "title": "Error",
+                "description": "Error",
+                "properties": {
+                    "name": {
+                        "title": "name",
+                        "description": "Faild field name",
+                        "type": "array",
+                        "items": {
+                            "description": "Error message",
+                            "type": "string"
+                        }
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Error"
                 }
             }
         },

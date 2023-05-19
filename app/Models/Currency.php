@@ -18,7 +18,7 @@ class Currency extends Model
 	protected $fillable = [
 		'alpha_code',
 		'numeric_code',
-		'fraction', // Number of fractional units (e.g. in dollar 100 cents)
+		'fraction',
 		'sign',
 	];
 }

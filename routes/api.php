@@ -30,10 +30,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('/business-profile', \App\Http\Controllers\Cabinets\BusinessController::class)->except([
         'edit', 'create'
     ]);
+
+	Route::apiResource('/currencies', \App\Http\Controllers\Support\CurrencyController::class);
 });
 
-Route::apiResource('/currency', \App\Http\Controllers\Support\CurrencyController::class)
-	->only(['index', 'show']);
 
 
 Route::post('/sendimage', [ImageController::class, 'store'])->name('image.store');
