@@ -13,11 +13,20 @@ return new class extends Migration
     {
         Schema::table('business_services', function (Blueprint $table) {
 			$table->renameColumn('service', 'title');
-			$table->unsignedBigInteger('price');
-			$table->foreignId('currency_id')->constrained('currencies')->cascadeOnDelete();
-			$table->text('description')->nullable();
-			$table->unsignedMediumInteger('duration');
-			$table->boolean('is_field');
+			$table->unsignedBigInteger('price')->before('created_at');
+			$table->foreignId('currency_id')
+				->constrained('currencies')
+				->cascadeOnUpdate()
+				->cascadeOnDelete()
+				->before('created_at');
+			$table->foreignId('user_id')
+				->constrained('users')
+				->cascadeOnUpdate()
+				->cascadeOnDelete()
+				->before('created_at');
+			$table->text('description')->nullable()->before('created_at');
+			$table->unsignedMediumInteger('duration')->before('created_at');
+			$table->boolean('is_field')->before('created_at');
         });
     }
 
