@@ -47,7 +47,7 @@ class CurrencyController extends Controller
      *      @OA\Response(
      *          response=201,
      *          description="Created",
-     *          @OA\JsonContent(ref="#/components/schemas/CurrencyResource")
+     *          @OA\JsonContent(ref="#/components/schemas/Currency")
      *      ),
      *      @OA\Response(
      *          response=422,
@@ -60,7 +60,7 @@ class CurrencyController extends Controller
     {
         $currency = Currency::create($request->validated());
 
-		return response()->json(new CurrencyResource($currency), Response::HTTP_CREATED);
+		return response()->json($currency, Response::HTTP_CREATED);
     }
 
     /**
@@ -90,7 +90,7 @@ class CurrencyController extends Controller
      */
     public function show(Currency $currency)
     {
-        return new CurrencyResource($currency);
+        return response()->json($currency);
     }
 
     /**
@@ -118,7 +118,7 @@ class CurrencyController extends Controller
      *      @OA\Response(
      *          response=200,
      *          description="OK",
-     *          @OA\JsonContent(ref="#/components/schemas/CurrencyResource")
+     *          @OA\JsonContent(ref="#/components/schemas/Currency")
      *      ),
      *      @OA\Response(
      *          response=422,
@@ -131,7 +131,7 @@ class CurrencyController extends Controller
     {
         $currency->update($request->validated());
 
-		return new CurrencyResource($currency);
+		return response()->json($currency);
     }
 
     /**
@@ -162,6 +162,6 @@ class CurrencyController extends Controller
     {
         $currency->delete();
 
-		return response()->json();
+		return response()->json(null);
     }
 }

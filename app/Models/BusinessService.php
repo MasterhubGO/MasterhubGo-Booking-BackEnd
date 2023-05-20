@@ -6,12 +6,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 
 class BusinessService extends Model
 {
     use HasFactory;
 
     protected $table = 'business_services';
+
     protected $fillable = [
         'business_id',
         'title',
@@ -20,6 +22,7 @@ class BusinessService extends Model
         'description',
         'duration',
         'is_field',
+		'user_id',
     ];
 
 	protected $casts = [];
@@ -42,5 +45,10 @@ class BusinessService extends Model
 	public function currency(): BelongsTo
 	{
 		return $this->belongsTo(Currency::class);
+	}
+
+	public function user(): BelongsTo
+	{
+		return $this->belongsTo(User::class);
 	}
 }

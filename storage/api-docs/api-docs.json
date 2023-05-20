@@ -158,19 +158,115 @@
                 }
             }
         },
-        "/api/service-feedbacks/{id}": {
+        "/api/business-profiles/{business_profile}/services": {
             "get": {
                 "tags": [
-                    "Service feedback"
+                    "Business profile"
                 ],
-                "summary": "Get service feedback information",
-                "description": "Returns service feedback data by id",
-                "operationId": "service-feedbacks-id",
+                "summary": "Services list for given business profile",
+                "description": "Returns services list for given business profile",
+                "operationId": "business-services",
+                "parameters": [
+                    {
+                        "name": "business_profile",
+                        "in": "path",
+                        "description": "Business profile id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BusinessServiceResource"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Business profile"
+                ],
+                "summary": "Creates new service for given business profile",
+                "description": "Returns created service data",
+                "operationId": "business-services-create",
+                "parameters": [
+                    {
+                        "name": "business_profile",
+                        "in": "path",
+                        "description": "Business profile id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 1
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/BusinessServiceCreateRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BusinessServiceResource"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation failed",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnprocessableContentResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/services/{id}": {
+            "get": {
+                "tags": [
+                    "Business service"
+                ],
+                "summary": "Get service information",
+                "description": "Returns service data by id",
+                "operationId": "service-id",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "Service feedback id",
+                        "description": "Service id",
                         "required": true,
                         "schema": {
                             "type": "integer"
@@ -184,19 +280,97 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/BusinessServiceFeedback"
+                                    "$ref": "#/components/schemas/BusinessService"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Business service"
+                ],
+                "summary": "Updates service by id",
+                "description": "Returns updated service",
+                "operationId": "service-update",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Service id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 1
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/BusinessServiceUpdateRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BusinessService"
                                 }
                             }
                         }
                     },
-                    "400": {
-                        "description": "Bad Request"
-                    },
-                    "401": {
-                        "description": "Unauthenticated"
-                    },
-                    "403": {
-                        "description": "Forbidden"
+                    "422": {
+                        "description": "Validation failed",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnprocessableContentResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Business service"
+                ],
+                "summary": "Deletes service by id",
+                "description": "Deletes service by id",
+                "operationId": "service-delete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Service id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Deleted successfully"
                     }
                 },
                 "security": [
@@ -441,7 +615,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/CurrencyResource"
+                                    "$ref": "#/components/schemas/Currency"
                                 }
                             }
                         }
@@ -537,7 +711,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/CurrencyResource"
+                                    "$ref": "#/components/schemas/Currency"
                                 }
                             }
                         }
@@ -580,7 +754,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Created"
+                        "description": "Deleted successfully"
                     }
                 },
                 "security": [
@@ -593,6 +767,87 @@
     },
     "components": {
         "schemas": {
+            "BusinessService": {
+                "title": "BusinessService",
+                "description": "BusinessService model",
+                "properties": {
+                    "id": {
+                        "title": "ID",
+                        "description": "ID",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "business_id": {
+                        "title": "business_id",
+                        "description": "Related business profile id",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "title": {
+                        "title": "title",
+                        "description": "Service title",
+                        "type": "string"
+                    },
+                    "price": {
+                        "title": "Price",
+                        "description": "Price",
+                        "type": "integer",
+                        "format": "int64",
+                        "minimum": 0,
+                        "example": 12900
+                    },
+                    "currency_id": {
+                        "title": "currency_id",
+                        "description": "Currency id",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": "1"
+                    },
+                    "description": {
+                        "title": "description",
+                        "description": "Service description",
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "duration": {
+                        "title": "duration",
+                        "description": "Duration in minutes",
+                        "type": "integer",
+                        "format": "int32",
+                        "minimum": 1
+                    },
+                    "is_field": {
+                        "title": "is_field",
+                        "description": "Indicates whether the service can be provided in the fields",
+                        "type": "boolean"
+                    },
+                    "user_id": {
+                        "title": "user_id",
+                        "description": "Owner id",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": "1"
+                    },
+                    "created_at": {
+                        "title": "created_at",
+                        "description": "Date and time of creation",
+                        "type": "string",
+                        "format": "datetime"
+                    },
+                    "updated_at": {
+                        "title": "description",
+                        "description": "Date and time of updation",
+                        "type": "string",
+                        "format": "datetime"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "BusinessService"
+                }
+            },
             "BusinessServiceFeedback": {
                 "title": "Service Feedback",
                 "description": "BusinessServiceFeedback model",
@@ -735,6 +990,114 @@
                 "xml": {
                     "name": "User"
                 }
+            },
+            "BusinessServiceCreateRequest": {
+                "title": "BusinessServiceCreateRequest",
+                "description": "Creates service",
+                "required": [
+                    "title",
+                    "price",
+                    "currency_id",
+                    "duration",
+                    "is_field",
+                    "user_id"
+                ],
+                "properties": {
+                    "title": {
+                        "title": "title",
+                        "description": "Service title",
+                        "type": "string"
+                    },
+                    "price": {
+                        "title": "Price",
+                        "description": "Price",
+                        "type": "integer",
+                        "format": "int64",
+                        "minimum": 0,
+                        "example": 12900
+                    },
+                    "currency_id": {
+                        "title": "currency_id",
+                        "description": "Currency id",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": "1"
+                    },
+                    "description": {
+                        "title": "description",
+                        "description": "Service description",
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "duration": {
+                        "title": "duration",
+                        "description": "Duration in minutes",
+                        "type": "integer",
+                        "format": "int32",
+                        "minimum": 1,
+                        "example": 45
+                    },
+                    "is_field": {
+                        "title": "is_field",
+                        "description": "Indicates whether the service can be provided in the fields",
+                        "type": "boolean"
+                    },
+                    "user_id": {
+                        "title": "user_id",
+                        "description": "Owner id",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": "1"
+                    }
+                },
+                "type": "object"
+            },
+            "BusinessServiceUpdateRequest": {
+                "title": "BusinessServiceUpdateRequest",
+                "description": "Updates service",
+                "required": [],
+                "properties": {
+                    "title": {
+                        "title": "title",
+                        "description": "Service title",
+                        "type": "string"
+                    },
+                    "price": {
+                        "title": "Price",
+                        "description": "Price",
+                        "type": "integer",
+                        "format": "int64",
+                        "minimum": 0,
+                        "example": 12900
+                    },
+                    "currency_id": {
+                        "title": "currency_id",
+                        "description": "Currency id",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": "1"
+                    },
+                    "description": {
+                        "title": "description",
+                        "description": "Service description",
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "duration": {
+                        "title": "duration",
+                        "description": "Duration in minutes",
+                        "type": "integer",
+                        "format": "int32",
+                        "minimum": 1,
+                        "example": 45
+                    },
+                    "is_field": {
+                        "title": "is_field",
+                        "description": "Indicates whether the service can be provided in the fields",
+                        "type": "boolean"
+                    }
+                },
+                "type": "object"
             },
             "CurrencyCreateRequest": {
                 "title": "Currency create request",
@@ -918,6 +1281,24 @@
                     }
                 },
                 "type": "object"
+            },
+            "BusinessServiceResource": {
+                "title": "BusinessServiceResource",
+                "description": "BusinessService resource",
+                "properties": {
+                    "data": {
+                        "title": "Data",
+                        "description": "Data wrapper",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/BusinessService"
+                        }
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "BusinessServiceResource"
+                }
             },
             "CurrencyResource": {
                 "title": "CurrencyResource",

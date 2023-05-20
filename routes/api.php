@@ -1,7 +1,10 @@
 <?php
 
+use App\Http\Controllers\BusinessService\BusinessServiceController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Support\CurrencyController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -27,11 +30,13 @@ Route::middleware('auth:sanctum')->group(function () {
     ]);
 
 
-    Route::apiResource('/business-profile', \App\Http\Controllers\Cabinets\BusinessController::class)->except([
+    Route::apiResource('/business-profiles', \App\Http\Controllers\Cabinets\BusinessController::class)->except([
         'edit', 'create'
     ]);
 
-	Route::apiResource('/currencies', \App\Http\Controllers\Support\CurrencyController::class);
+	Route::apiResource('/currencies', CurrencyController::class);
+	
+	Route::apiResource('/business-profiles.services', BusinessServiceController::class)->shallow();
 });
 
 
@@ -41,5 +46,5 @@ Route::post('/sendimage', [ImageController::class, 'store'])->name('image.store'
 Route::get('profile/{user}', [ProfileController::class, 'trackVisit'])->name('profile.visit');
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::apiResource('business-profile.comments', CommentController::class)->shallow();
+    Route::apiResource('business-profiles.comments', CommentController::class)->shallow();
 });
