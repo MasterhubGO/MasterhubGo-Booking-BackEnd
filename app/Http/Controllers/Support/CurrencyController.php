@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Support;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Support\CurrencyCreateRequest;
 use App\Http\Requests\Support\CurrencyUpdateRequest;
+use App\Http\Resources\Support\CurrencyCollection;
 use App\Http\Resources\Support\CurrencyResource;
 use App\Models\Currency;
 use Illuminate\Http\Request;
@@ -23,13 +24,13 @@ class CurrencyController extends Controller
      *      @OA\Response(
      *          response=200,
      *          description="Successful operation",
-     *          @OA\JsonContent(ref="#/components/schemas/CurrencyResource")
+     *          @OA\JsonContent(ref="#/components/schemas/CurrencyCollection")
      *       ),
      * )
      */
     public function index()
     {
-        return CurrencyResource::collection(Currency::all());
+        return new CurrencyCollection(Currency::all());
     }
 
     /**
@@ -47,7 +48,7 @@ class CurrencyController extends Controller
      *      @OA\Response(
      *          response=201,
      *          description="Created",
-     *          @OA\JsonContent(ref="#/components/schemas/Currency")
+     *          @OA\JsonContent(ref="#/components/schemas/CurrencyResource")
      *      ),
      *      @OA\Response(
      *          response=422,
@@ -60,7 +61,9 @@ class CurrencyController extends Controller
     {
         $currency = Currency::create($request->validated());
 
-		return response()->json($currency, Response::HTTP_CREATED);
+		return (new CurrencyResource($currency))
+			->response()
+			->setStatusCode(Response::HTTP_CREATED);
     }
 
     /**
@@ -84,13 +87,13 @@ class CurrencyController extends Controller
      *      @OA\Response(
      *          response=200,
      *          description="Successful operation",
-     *          @OA\JsonContent(ref="#/components/schemas/Currency")
+     *          @OA\JsonContent(ref="#/components/schemas/CurrencyResource")
      *       ),
      * )
      */
     public function show(Currency $currency)
     {
-        return response()->json($currency);
+        return new CurrencyResource($currency);
     }
 
     /**
@@ -118,7 +121,7 @@ class CurrencyController extends Controller
      *      @OA\Response(
      *          response=200,
      *          description="OK",
-     *          @OA\JsonContent(ref="#/components/schemas/Currency")
+     *          @OA\JsonContent(ref="#/components/schemas/CurrencyResource")
      *      ),
      *      @OA\Response(
      *          response=422,
@@ -131,7 +134,7 @@ class CurrencyController extends Controller
     {
         $currency->update($request->validated());
 
-		return response()->json($currency);
+		return new CurrencyResource($currency);
     }
 
     /**

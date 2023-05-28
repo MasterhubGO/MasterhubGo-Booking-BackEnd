@@ -7,6 +7,8 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class CurrencyResource extends JsonResource
 {
+	public static $wrap = "item";
+
     /**
      * Transform the resource into an array.
      *
@@ -14,12 +16,6 @@ class CurrencyResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return [
-			'id' => $this->id,
-			'alpha_code' => $this->alpha_code,
-			'numeric_code' => $this->numeric_code,
-			'fraction' => $this->fraction,
-			'sign' => $this->sign,
-		];
+		return parent::toArray($request);
     }
 }

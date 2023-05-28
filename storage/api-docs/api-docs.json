@@ -179,8 +179,8 @@
                     }
                 ],
                 "responses": {
-                    "201": {
-                        "description": "Created",
+                    "200": {
+                        "description": "OK",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -578,7 +578,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/CurrencyResource"
+                                    "$ref": "#/components/schemas/CurrencyCollection"
                                 }
                             }
                         }
@@ -615,7 +615,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Currency"
+                                    "$ref": "#/components/schemas/CurrencyResource"
                                 }
                             }
                         }
@@ -664,7 +664,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Currency"
+                                    "$ref": "#/components/schemas/CurrencyResource"
                                 }
                             }
                         }
@@ -711,7 +711,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Currency"
+                                    "$ref": "#/components/schemas/CurrencyResource"
                                 }
                             }
                         }
@@ -1286,8 +1286,14 @@
                 "title": "BusinessServiceResource",
                 "description": "BusinessService resource",
                 "properties": {
-                    "data": {
-                        "title": "Data",
+                    "count": {
+                        "title": "Count",
+                        "description": "Number of items in response",
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "items": {
+                        "title": "Items",
                         "description": "Data wrapper",
                         "type": "array",
                         "items": {
@@ -1300,17 +1306,36 @@
                     "name": "BusinessServiceResource"
                 }
             },
-            "CurrencyResource": {
+            "CurrencyCollection": {
                 "title": "CurrencyResource",
                 "description": "Currency resource",
                 "properties": {
-                    "data": {
-                        "title": "Data",
+                    "count": {
+                        "title": "Count",
+                        "description": "Number of items in response",
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "items": {
+                        "title": "Items",
                         "description": "Data wrapper",
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/Currency"
                         }
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "CurrencyResource"
+                }
+            },
+            "CurrencyResource": {
+                "title": "CurrencyResource",
+                "description": "Currency resource",
+                "properties": {
+                    "item": {
+                        "$ref": "#/components/schemas/Currency"
                     }
                 },
                 "type": "object",

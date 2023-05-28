@@ -7,6 +7,8 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class BusinessServiceResource extends JsonResource
 {
+	public static $wrap = 'item';
+
     /**
      * Transform the resource into an array.
      *

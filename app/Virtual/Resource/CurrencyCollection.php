@@ -3,14 +3,14 @@
 namespace App\Virtual\Resource;
 /**
  * @OA\Schema(
- *     title="BusinessServiceResource",
- *     description="BusinessService resource",
+ *     title="CurrencyResource",
+ *     description="Currency resource",
  *     @OA\Xml(
- *         name="BusinessServiceResource"
+ *         name="CurrencyResource"
  *     )
  * )
  */
-class BusinessServiceResource
+class CurrencyCollection
 {
 	/**
      * @OA\Property(
@@ -29,7 +29,7 @@ class BusinessServiceResource
      *     description="Data wrapper"
      * )
      *
-     * @var \App\Virtual\Models\BusinessService[]
+     * @var \App\Virtual\Models\Currency[]
      */
     private $items;
 }

@@ -14,11 +14,11 @@ class CurrencyResource
 {
     /**
      * @OA\Property(
-     *     title="Data",
+     *     title="Item",
      *     description="Data wrapper"
      * )
      *
-     * @var \App\Virtual\Models\Currency[]
+     * @var \App\Virtual\Models\Currency
      */
-    private $data;
+    private $item;
 }

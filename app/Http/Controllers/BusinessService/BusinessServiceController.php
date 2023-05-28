@@ -32,8 +32,8 @@ class BusinessServiceController extends Controller
      *          )
 	 * 		),
      *      @OA\Response(
-     *          response=201,
-     *          description="Created",
+     *          response=200,
+     *          description="OK",
      *          @OA\JsonContent(ref="#/components/schemas/BusinessServiceResource")
      *      ),
      * )
