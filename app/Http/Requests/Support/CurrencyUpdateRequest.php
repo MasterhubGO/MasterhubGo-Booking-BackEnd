@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Support;
 
-use App\Rules\MultipleOf;
+use App\Support\Rules\MultipleOf;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\BusinessService;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\BusinessService\BusinessServiceCreateRequest;
 use App\Http\Requests\BusinessService\BusinessServiceUpdateRequest;
+use App\Http\Resources\BusinessService\BusinessServiceCollection;
 use App\Http\Resources\BusinessService\BusinessServiceResource;
 use App\Models\BusinessProfile;
 use App\Models\BusinessService;
@@ -34,13 +35,13 @@ class BusinessServiceController extends Controller
      *      @OA\Response(
      *          response=200,
      *          description="OK",
-     *          @OA\JsonContent(ref="#/components/schemas/BusinessServiceResource")
+     *          @OA\JsonContent(ref="#/components/schemas/BusinessServiceCollection")
      *      ),
      * )
      */
     public function index(BusinessProfile $businessProfile)
     {
-        return BusinessServiceResource::collection($businessProfile->services);
+		return new BusinessServiceCollection($businessProfile->services);
     }
 
     /**
@@ -77,11 +78,13 @@ class BusinessServiceController extends Controller
      *      ),
      * )
      */
-    public function store(BusinessServiceCreateRequest $request, BusinessProfile $business)
+    public function store(BusinessServiceCreateRequest $request)
     {
         $service = BusinessService::create($request->validated());
 
-		return response()->json($service, Response::HTTP_CREATED);
+		return (new BusinessServiceResource($service))
+			->response()
+			->setStatusCode(Response::HTTP_CREATED);
     }
 
     /**
@@ -105,13 +108,13 @@ class BusinessServiceController extends Controller
      *      @OA\Response(
      *          response=200,
      *          description="Successful operation",
-     *          @OA\JsonContent(ref="#/components/schemas/BusinessService")
+     *          @OA\JsonContent(ref="#/components/schemas/BusinessServiceResource")
      *       ),
      * )
      */
     public function show(BusinessService $service)
     {
-        return response()->json($service);
+        return new BusinessServiceResource($service);
     }
 
     /**
@@ -139,7 +142,7 @@ class BusinessServiceController extends Controller
      *      @OA\Response(
      *          response=200,
      *          description="OK",
-     *          @OA\JsonContent(ref="#/components/schemas/BusinessService")
+     *          @OA\JsonContent(ref="#/components/schemas/BusinessServiceResource")
      *      ),
      *      @OA\Response(
      *          response=422,
@@ -152,7 +155,7 @@ class BusinessServiceController extends Controller
     {
 		$service->update($request->validated());
 
-        return response()->json($service); 
+        return new BusinessServiceResource($service); 
     }
 
      /**

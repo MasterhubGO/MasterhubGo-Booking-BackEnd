@@ -184,7 +184,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/BusinessServiceResource"
+                                    "$ref": "#/components/schemas/BusinessServiceCollection"
                                 }
                             }
                         }
@@ -280,7 +280,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/BusinessService"
+                                    "$ref": "#/components/schemas/BusinessServiceResource"
                                 }
                             }
                         }
@@ -327,7 +327,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/BusinessService"
+                                    "$ref": "#/components/schemas/BusinessServiceResource"
                                 }
                             }
                         }
@@ -791,19 +791,7 @@
                         "type": "string"
                     },
                     "price": {
-                        "title": "Price",
-                        "description": "Price",
-                        "type": "integer",
-                        "format": "int64",
-                        "minimum": 0,
-                        "example": 12900
-                    },
-                    "currency_id": {
-                        "title": "currency_id",
-                        "description": "Currency id",
-                        "type": "integer",
-                        "format": "int64",
-                        "example": "1"
+                        "$ref": "#/components/schemas/Price"
                     },
                     "description": {
                         "title": "description",
@@ -834,13 +822,15 @@
                         "title": "created_at",
                         "description": "Date and time of creation",
                         "type": "string",
-                        "format": "datetime"
+                        "format": "datetime",
+                        "example": "2023-05-28T13:51:36.000000Z"
                     },
                     "updated_at": {
                         "title": "description",
                         "description": "Date and time of updation",
                         "type": "string",
-                        "format": "datetime"
+                        "format": "datetime",
+                        "example": "2023-05-28T13:51:36.000000Z"
                     }
                 },
                 "type": "object",
@@ -1011,10 +1001,9 @@
                     "price": {
                         "title": "Price",
                         "description": "Price",
-                        "type": "integer",
-                        "format": "int64",
+                        "type": "number",
                         "minimum": 0,
-                        "example": 12900
+                        "example": 12.3
                     },
                     "currency_id": {
                         "title": "currency_id",
@@ -1066,9 +1055,8 @@
                         "title": "Price",
                         "description": "Price",
                         "type": "integer",
-                        "format": "int64",
                         "minimum": 0,
-                        "example": 12900
+                        "example": 12.99
                     },
                     "currency_id": {
                         "title": "currency_id",
@@ -1282,7 +1270,7 @@
                 },
                 "type": "object"
             },
-            "BusinessServiceResource": {
+            "BusinessServiceCollection": {
                 "title": "BusinessServiceResource",
                 "description": "BusinessService resource",
                 "properties": {
@@ -1299,6 +1287,19 @@
                         "items": {
                             "$ref": "#/components/schemas/BusinessService"
                         }
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "BusinessServiceResource"
+                }
+            },
+            "BusinessServiceResource": {
+                "title": "BusinessServiceResource",
+                "description": "BusinessService resource",
+                "properties": {
+                    "item": {
+                        "$ref": "#/components/schemas/BusinessService"
                     }
                 },
                 "type": "object",
@@ -1396,6 +1397,25 @@
                 "type": "object",
                 "xml": {
                     "name": "Error"
+                }
+            },
+            "Price": {
+                "title": "Price",
+                "description": "Price",
+                "properties": {
+                    "amount": {
+                        "title": "amount",
+                        "description": "Amount",
+                        "type": "number",
+                        "example": 129.99
+                    },
+                    "currency": {
+                        "$ref": "#/components/schemas/Currency"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Price"
                 }
             }
         },

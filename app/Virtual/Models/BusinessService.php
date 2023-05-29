@@ -49,28 +49,12 @@ class BusinessService
     /**
      * @OA\Property(
      *     title="Price",
-     *     description="Price",
-     *     example=12900,
-     *     format="int64",
-	 *	   minimum=0,
-     *     type="integer"
+     *     description="Price object",
      * )
      *
-     * @var integer
+     * @var \App\Virtual\ValueObjects\Price
      */
     public $price;
-
-    /**
-     * @OA\Property(
-     *     title="currency_id",
-     *     description="Currency id",
-     *     example="1",
-	 * 	   format="int64",
-     * )
-     *
-     * @var integer
-     */
-    public $currency_id;
 
     /**
      * @OA\Property(
@@ -122,6 +106,7 @@ class BusinessService
      *     title="created_at",
      *     description="Date and time of creation",
 	 * 	   format="datetime",
+	 * 	   example="2023-05-28T13:51:36.000000Z",
      * )
      *
      * @var string
@@ -132,7 +117,8 @@ class BusinessService
      * @OA\Property(
      *     title="description",
      *     description="Date and time of updation",
-	 * 	   format="datetime"
+	 * 	   format="datetime",
+	 * 	   example="2023-05-28T13:51:36.000000Z",
      * )
      *
      * @var string

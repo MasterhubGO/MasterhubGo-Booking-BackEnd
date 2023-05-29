@@ -10,15 +10,26 @@ namespace App\Virtual\Resource;
  *     )
  * )
  */
-class BusinessServiceResource
+class BusinessServiceCollection
 {
+	/**
+     * @OA\Property(
+     *     title="Count",
+     *     description="Number of items in response",
+	 *     example=1,
+     * )
+     *
+     * @var integer
+     */
+    private $count;
+
     /**
      * @OA\Property(
      *     title="Items",
      *     description="Data wrapper"
      * )
      *
-     * @var \App\Virtual\Models\BusinessService
+     * @var \App\Virtual\Models\BusinessService[]
      */
-    private $item;
+    private $items;
 }

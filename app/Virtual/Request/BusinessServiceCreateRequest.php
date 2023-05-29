@@ -25,13 +25,11 @@ class BusinessServiceCreateRequest
      * @OA\Property(
      *     title="Price",
      *     description="Price",
-     *     example=12900,
-     *     format="int64",
+     *     example=12.3,
 	 *	   minimum=0,
-     *     type="integer"
      * )
      *
-     * @var integer
+     * @var number
      */
     public $price;
 

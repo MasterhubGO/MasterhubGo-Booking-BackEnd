@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Support\Casts\PriceCast;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -25,7 +26,14 @@ class BusinessService extends Model
 		'user_id',
     ];
 
-	protected $casts = [];
+	protected $casts = [
+		'price' => PriceCast::class,
+		'is_field' => 'boolean',
+	];
+
+	protected $with = [
+		'currency',
+	];
 
     public function businessProfile(): BelongsTo
     {
