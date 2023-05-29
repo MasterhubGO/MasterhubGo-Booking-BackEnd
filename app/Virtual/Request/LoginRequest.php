@@ -13,17 +13,6 @@ class LoginRequest
 {
     /**
      * @OA\Property(
-     *      title="Name",
-     *      description="Name",
-     *      example="John"
-     * )
-     *
-     * @var string
-     */
-    public $name;
-
-    /**
-     * @OA\Property(
      *      title="Email",
      *      description="Email",
      *      example="example@example.com"
@@ -43,15 +32,4 @@ class LoginRequest
      * @var string
      */
     public $password;
-
-    /**
-     * @OA\Property(
-     *      title="Password confirmation",
-     *      description="Password confirmation",
-     *      example="password"
-     * )
-     *
-     * @var string
-     */
-    public $password_confirmation;
 }

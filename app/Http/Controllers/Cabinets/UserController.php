@@ -4,12 +4,10 @@ namespace App\Http\Controllers\Cabinets;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Cabinets\UserUpdateRequest;
+use App\Http\Resources\Cabinets\UserCollection;
 use App\Http\Resources\Cabinets\UserResource;
 use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -24,7 +22,7 @@ class UserController extends Controller
      *      @OA\Response(
      *          response=200,
      *          description="Successful operation",
-     *          @OA\JsonContent(ref="#/components/schemas/UserResource")
+     *          @OA\JsonContent(ref="#/components/schemas/UserCollection")
      *       ),
      *      @OA\Response(
      *          response=401,
@@ -38,7 +36,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return UserResource::collection(User::all());
+        return new UserCollection(User::all());
     }
 
     /**
@@ -62,7 +60,7 @@ class UserController extends Controller
      *      @OA\Response(
      *          response=200,
      *          description="Successful operation",
-     *          @OA\JsonContent(ref="#/components/schemas/User")
+     *          @OA\JsonContent(ref="#/components/schemas/UserResource")
      *       ),
      *      @OA\Response(
      *          response=400,
@@ -108,7 +106,7 @@ class UserController extends Controller
      *      @OA\Response(
      *          response=202,
      *          description="Successful operation",
-     *          @OA\JsonContent(ref="#/components/schemas/User")
+     *          @OA\JsonContent(ref="#/components/schemas/UserResource")
      *       ),
      *      @OA\Response(
      *          response=400,

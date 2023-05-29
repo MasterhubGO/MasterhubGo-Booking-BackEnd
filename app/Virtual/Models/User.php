@@ -95,4 +95,14 @@ class User
      */
     public $user_role;
 
+	//TODO Добавить ссылку на BusinessProfileResource когда появится
+	/**
+	 * @OA\Property(
+     *      title="Business profiles",
+     *      description="List of user businesses",
+     * )
+     *
+     * @var object
+	 */
+	public $business_profiles;
 }

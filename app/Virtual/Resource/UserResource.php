@@ -14,11 +14,11 @@ class UserResource
 {
     /**
      * @OA\Property(
-     *     title="Data",
+     *     title="Item",
      *     description="Data wrapper"
      * )
      *
-     * @var \App\Virtual\Models\User[]
+     * @var \App\Virtual\Models\User
      */
-    private $data;
+    private $item;
 }

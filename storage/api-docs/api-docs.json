@@ -394,7 +394,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/UserResource"
+                                    "$ref": "#/components/schemas/UserCollection"
                                 }
                             }
                         }
@@ -439,7 +439,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/User"
+                                    "$ref": "#/components/schemas/UserResource"
                                 }
                             }
                         }
@@ -495,7 +495,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/User"
+                                    "$ref": "#/components/schemas/UserResource"
                                 }
                             }
                         }
@@ -974,6 +974,11 @@
                         "description": "Role bayer or seller",
                         "type": "string",
                         "example": "buyer"
+                    },
+                    "business_profiles": {
+                        "title": "Business profiles",
+                        "description": "List of user businesses",
+                        "type": "object"
                     }
                 },
                 "type": "object",
@@ -1175,12 +1180,6 @@
                     "name"
                 ],
                 "properties": {
-                    "name": {
-                        "title": "Name",
-                        "description": "Name",
-                        "type": "string",
-                        "example": "John"
-                    },
                     "email": {
                         "title": "Email",
                         "description": "Email",
@@ -1190,12 +1189,6 @@
                     "password": {
                         "title": "Password",
                         "description": "Password",
-                        "type": "string",
-                        "example": "password"
-                    },
-                    "password_confirmation": {
-                        "title": "Password confirmation",
-                        "description": "Password confirmation",
                         "type": "string",
                         "example": "password"
                     }
@@ -1344,17 +1337,36 @@
                     "name": "CurrencyResource"
                 }
             },
-            "UserResource": {
-                "title": "UserResource",
-                "description": "User resource",
+            "UserCollection": {
+                "title": "BusinessServiceResource",
+                "description": "BusinessService resource",
                 "properties": {
-                    "data": {
-                        "title": "Data",
+                    "count": {
+                        "title": "Count",
+                        "description": "Number of items in response",
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "items": {
+                        "title": "Items",
                         "description": "Data wrapper",
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/User"
                         }
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "BusinessServiceResource"
+                }
+            },
+            "UserResource": {
+                "title": "UserResource",
+                "description": "User resource",
+                "properties": {
+                    "item": {
+                        "$ref": "#/components/schemas/User"
                     }
                 },
                 "type": "object",
