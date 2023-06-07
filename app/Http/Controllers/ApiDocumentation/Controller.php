@@ -16,7 +16,7 @@ use Illuminate\Http\Request;
 
  * @OA\Server(
  *     description="Laravel Swagger API server",
- *     url="http://127.0.0.1:8000/"
+ *     url=L5_SWAGGER_CONST_HOST
  * )
  * @OA\SecurityScheme(
  *      securityScheme="bearerAuth",
