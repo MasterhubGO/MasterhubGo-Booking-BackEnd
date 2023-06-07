@@ -3,14 +3,14 @@
 namespace App\Virtual\Resource;
 /**
  * @OA\Schema(
- *     title="UserResource",
- *     description="User resource",
+ *     title="CurrencyResource",
+ *     description="Currency resource",
  *     @OA\Xml(
- *         name="UserResource"
+ *         name="CurrencyResource"
  *     )
  * )
  */
-class UserResource
+class CurrencyResource
 {
     /**
      * @OA\Property(
@@ -18,7 +18,7 @@ class UserResource
      *     description="Data wrapper"
      * )
      *
-     * @var \App\Virtual\Models\User
+     * @var \App\Virtual\Models\Currency
      */
     private $item;
 }

@@ -29,7 +29,7 @@ class BusinessProfile extends Model
         return $this->belongsTo(BusinessRole::class, 'role_id');
     }
 
-    public function businessServices()
+    public function services()
     {
         return $this->hasMany(BusinessService::class, 'business_id');
     }

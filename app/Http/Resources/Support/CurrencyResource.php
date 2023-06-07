@@ -1,12 +1,14 @@
 <?php
 
-namespace App\Http\Resources\Cabinets;
+namespace App\Http\Resources\Support;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ServicesResource extends JsonResource
+class CurrencyResource extends JsonResource
 {
+	public static $wrap = "item";
+
     /**
      * Transform the resource into an array.
      *
@@ -14,9 +16,6 @@ class ServicesResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return [
-            'id' => $this->id,
-            'services' => $this->service,
-        ];
+		return parent::toArray($request);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Cabinets;
 
+use App\Http\Resources\BusinessService\BusinessServiceResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -21,7 +22,7 @@ class BusinessResource extends JsonResource
             'banner' => $this->banner,
             'phone' => $this->phone,
             'personal_site' => $this->personal_site,
-            'services' => ServicesResource::collection($this->businessServices)
+            // 'services' => BusinessServiceResource::collection($this->services)
         ];
     }
 }
