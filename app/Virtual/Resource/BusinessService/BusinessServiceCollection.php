@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Virtual\Resource;
+namespace App\Virtual\Resource\BusinessService;
 /**
  * @OA\Schema(
- *     title="BusinessServiceResource",
- *     description="BusinessService resource",
+ *     title="BusinessServiceCollection",
+ *     description="BusinessService collection",
  *     @OA\Xml(
- *         name="BusinessServiceResource"
+ *         name="BusinessServiceCollection"
  *     )
  * )
  */
@@ -32,4 +32,15 @@ class BusinessServiceCollection
      * @var \App\Virtual\Models\BusinessService[]
      */
     private $items;
+
+	/**
+     * @OA\Property(
+     *     title="Total",
+     *     description="Number of items in database",
+	 *     example=1,
+     * )
+     *
+     * @var integer
+     */
+    private $total;
 }

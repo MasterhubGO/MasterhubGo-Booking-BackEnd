@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Virtual\Resource;
+namespace App\Virtual\Resource\BusinessService;
 /**
  * @OA\Schema(
  *     title="BusinessServiceResource",

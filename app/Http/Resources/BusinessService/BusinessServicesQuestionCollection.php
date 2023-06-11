@@ -3,9 +3,10 @@
 namespace App\Http\Resources\BusinessService;
 
 use App\Traits\ResourceCollectionTrait;
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class BusinessServiceCollection extends ResourceCollection
+class BusinessServicesQuestionCollection extends ResourceCollection
 {
 	use ResourceCollectionTrait;
 

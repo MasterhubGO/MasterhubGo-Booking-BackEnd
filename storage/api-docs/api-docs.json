@@ -158,6 +158,55 @@
                 }
             }
         },
+        "/api/services": {
+            "get": {
+                "tags": [
+                    "Business service"
+                ],
+                "summary": "Services list",
+                "description": "Returns services list",
+                "operationId": "services",
+                "parameters": [
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "Number of items to return",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 20
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BusinessServiceCollection"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/business-profiles/{business_profile}/services": {
             "get": {
                 "tags": [
@@ -172,6 +221,26 @@
                         "in": "path",
                         "description": "Business profile id",
                         "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 1
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "Number of items to return",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 20
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page",
+                        "required": false,
                         "schema": {
                             "type": "integer"
                         },
@@ -361,6 +430,248 @@
                         "name": "id",
                         "in": "path",
                         "description": "Service id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Deleted successfully"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/services/{service}/questions": {
+            "get": {
+                "tags": [
+                    "Business service"
+                ],
+                "summary": "Questions list for given service",
+                "description": "Returns questions list for given service",
+                "operationId": "questions",
+                "parameters": [
+                    {
+                        "name": "service",
+                        "in": "path",
+                        "description": "Business service id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 1
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "Number of items to return",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 20
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BusinessServicesQuestionCollection"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Business service"
+                ],
+                "summary": "Creates new question for given business service",
+                "description": "Returns created question data",
+                "operationId": "questions-create",
+                "parameters": [
+                    {
+                        "name": "service",
+                        "in": "path",
+                        "description": "Business service id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 1
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/BusinessServicesQuestionCreateRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BusinessServicesQuestionResource"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation failed",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnprocessableContentResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/questions/{id}": {
+            "get": {
+                "tags": [
+                    "Business service question"
+                ],
+                "summary": "Get question information",
+                "description": "Returns question data by id",
+                "operationId": "question-id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Question id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BusinessServicesQuestionResource"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Business service question"
+                ],
+                "summary": "Updates question by id",
+                "description": "Returns updated question",
+                "operationId": "question-update",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Question id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 1
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/BusinessServicesQuestionUpdateRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BusinessServicesQuestionResource"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation failed",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnprocessableContentResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Business service question"
+                ],
+                "summary": "Deletes question by id",
+                "description": "Deletes question by id",
+                "operationId": "question-delete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Question id",
                         "required": true,
                         "schema": {
                             "type": "integer"
@@ -881,6 +1192,54 @@
                     "name": "Business Service Feedback"
                 }
             },
+            "BusinessServicesQuestion": {
+                "title": "BusinessServicesQuestion",
+                "description": "BusinessServicesQuestion model",
+                "properties": {
+                    "id": {
+                        "title": "ID",
+                        "description": "ID",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "service_id": {
+                        "title": "service_id",
+                        "description": "Related business service id",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "question": {
+                        "title": "question",
+                        "description": "Question text",
+                        "type": "string"
+                    },
+                    "answer": {
+                        "title": "answer",
+                        "description": "Answer text",
+                        "type": "string"
+                    },
+                    "created_at": {
+                        "title": "created_at",
+                        "description": "Date and time of creation",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2023-05-28T13:51:36.000000Z"
+                    },
+                    "updated_at": {
+                        "title": "description",
+                        "description": "Date and time of updation",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2023-05-28T13:51:36.000000Z"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "BusinessServicesQuestion"
+                }
+            },
             "Currency": {
                 "title": "Currency",
                 "description": "Currency model. Implements country currency codes according to ISO 4217 standard",
@@ -1092,6 +1451,52 @@
                 },
                 "type": "object"
             },
+            "BusinessServicesQuestionCreateRequest": {
+                "title": "BusinessServicesQuestionCreateRequest",
+                "description": "Creates question",
+                "required": [
+                    "question",
+                    "answer"
+                ],
+                "properties": {
+                    "question": {
+                        "title": "question",
+                        "description": "Text of the question",
+                        "type": "string",
+                        "maximum": 3000,
+                        "minimum": 5
+                    },
+                    "answer": {
+                        "title": "answer",
+                        "description": "Text of the answer",
+                        "type": "string",
+                        "maximum": 3000,
+                        "minimum": 5
+                    }
+                },
+                "type": "object"
+            },
+            "BusinessServicesQuestionUpdateRequest": {
+                "title": "BusinessServicesQuestionUpdateRequest",
+                "description": "Updates question",
+                "properties": {
+                    "question": {
+                        "title": "question",
+                        "description": "Text of the question",
+                        "type": "string",
+                        "maximum": 3000,
+                        "minimum": 5
+                    },
+                    "answer": {
+                        "title": "answer",
+                        "description": "Text of the answer",
+                        "type": "string",
+                        "maximum": 3000,
+                        "minimum": 5
+                    }
+                },
+                "type": "object"
+            },
             "CurrencyCreateRequest": {
                 "title": "Currency create request",
                 "description": "Creates currency",
@@ -1264,8 +1669,8 @@
                 "type": "object"
             },
             "BusinessServiceCollection": {
-                "title": "BusinessServiceResource",
-                "description": "BusinessService resource",
+                "title": "BusinessServiceCollection",
+                "description": "BusinessService collection",
                 "properties": {
                     "count": {
                         "title": "Count",
@@ -1280,11 +1685,17 @@
                         "items": {
                             "$ref": "#/components/schemas/BusinessService"
                         }
+                    },
+                    "total": {
+                        "title": "Total",
+                        "description": "Number of items in database",
+                        "type": "integer",
+                        "example": 1
                     }
                 },
                 "type": "object",
                 "xml": {
-                    "name": "BusinessServiceResource"
+                    "name": "BusinessServiceCollection"
                 }
             },
             "BusinessServiceResource": {
@@ -1298,6 +1709,49 @@
                 "type": "object",
                 "xml": {
                     "name": "BusinessServiceResource"
+                }
+            },
+            "BusinessServicesQuestionCollection": {
+                "title": "BusinessServicesQuestionCollection",
+                "description": "BusinessServices question collection",
+                "properties": {
+                    "count": {
+                        "title": "Count",
+                        "description": "Number of items in response",
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "items": {
+                        "title": "Items",
+                        "description": "Data wrapper",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/BusinessServicesQuestion"
+                        }
+                    },
+                    "total": {
+                        "title": "Total",
+                        "description": "Number of items in database",
+                        "type": "integer",
+                        "example": 1
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "BusinessServicesQuestionCollection"
+                }
+            },
+            "BusinessServicesQuestionResource": {
+                "title": "BusinessServicesQuestionResource",
+                "description": "BusinessService question resource",
+                "properties": {
+                    "item": {
+                        "$ref": "#/components/schemas/BusinessServicesQuestion"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "BusinessServicesQuestionResource"
                 }
             },
             "CurrencyCollection": {

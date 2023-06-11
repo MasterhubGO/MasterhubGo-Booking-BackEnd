@@ -1,6 +1,9 @@
 <?php
 
 use App\Http\Controllers\BusinessService\BusinessServiceController;
+use App\Http\Controllers\BusinessService\BusinessServicesQuestionController;
+use \App\Http\Controllers\Cabinets\BusinessController;
+use \App\Http\Controllers\Cabinets\UserController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\ProfileController;
@@ -24,27 +27,20 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 });
 
 Route::middleware('auth:sanctum')->group(function () {
+    Route::apiResource('/personal-cabinet', UserController::class)->except(['store']);
 
-    Route::apiResource('/personal-cabinet', \App\Http\Controllers\Cabinets\UserController::class)->only([
-        'show', 'update', 'destroy', 'index'
-    ]);
-
-
-    Route::apiResource('/business-profiles', \App\Http\Controllers\Cabinets\BusinessController::class)->except([
-        'edit', 'create'
-    ]);
-
-	Route::apiResource('/currencies', CurrencyController::class);
-	
+    Route::apiResource('/business-profiles', BusinessController::class)->except(['edit', 'create']);
 	Route::apiResource('/business-profiles.services', BusinessServiceController::class)->shallow();
-});
 
+	Route::get('services', [BusinessServiceController::class, 'list']);
+	Route::apiResource('services.questions', BusinessServicesQuestionController::class)->shallow();
+	
+	Route::apiResource('/currencies', CurrencyController::class);
+
+	Route::apiResource('business-profiles.comments', CommentController::class)->shallow();
+});
 
 
 Route::post('/sendimage', [ImageController::class, 'store'])->name('image.store');
 
 Route::get('profile/{user}', [ProfileController::class, 'trackVisit'])->name('profile.visit');
-
-Route::middleware('auth:sanctum')->group(function () {
-    Route::apiResource('business-profiles.comments', CommentController::class)->shallow();
-});

@@ -16,6 +16,8 @@ class BusinessServicesQuestion extends Model
 		'answer',
 	];
 
+	protected $perPage = 20;
+
 	public function service(): BelongsTo
 	{
 		return $this->belongsTo(BusinessService::class);

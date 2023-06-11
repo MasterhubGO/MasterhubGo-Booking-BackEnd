@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Virtual\Request;
+namespace App\Virtual\Request\BusinessService;
 /**
  * @OA\Schema(
  *      title="BusinessServiceUpdateRequest",

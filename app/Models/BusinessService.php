@@ -35,9 +35,11 @@ class BusinessService extends Model
 		'currency',
 	];
 
+	protected $perPage = 100;
+
     public function businessProfile(): BelongsTo
     {
-        return $this->belongsTo(BusinessProfile::class);
+        return $this->belongsTo(BusinessProfile::class, 'business_id');
     }
 
 	public function questions(): HasMany

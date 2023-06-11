@@ -14,6 +14,50 @@ use Illuminate\Http\Response;
 
 class BusinessServiceController extends Controller
 {
+	/**
+     * @OA\Get(
+     *      path="/api/services",
+     *      operationId="services",
+     *      security={{"bearerAuth":{}}},
+     *      tags={"Business service"},
+     *      summary="Services list",
+     *      description="Returns services list",
+	 * 		@OA\Parameter(
+	 * 			name="limit",
+     *          description="Number of items to return",
+     *          required=false,
+     *          in="query",
+     *          example=20,
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+	 * 		),
+	 * 		@OA\Parameter(
+	 * 			name="page",
+     *          description="Page",
+     *          required=false,
+     *          in="query",
+     *          example=1,
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+	 * 		),
+     *      @OA\Response(
+     *          response=200,
+     *          description="OK",
+     *          @OA\JsonContent(ref="#/components/schemas/BusinessServiceCollection")
+     *      ),
+     * )
+     */
+	public function list(BusinessService $service)
+	{
+		$services = $service->query()
+			->orderBy('id')
+			->paginate(request()->limit);
+
+		return new BusinessServiceCollection($services);
+	}
+
     /**
      * @OA\Get(
      *      path="/api/business-profiles/{business_profile}/services",
@@ -32,6 +76,26 @@ class BusinessServiceController extends Controller
      *              type="integer"
      *          )
 	 * 		),
+	 * 		@OA\Parameter(
+	 * 			name="limit",
+     *          description="Number of items to return",
+     *          required=false,
+     *          in="query",
+     *          example=20,
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+	 * 		),
+	 * 		@OA\Parameter(
+	 * 			name="page",
+     *          description="Page",
+     *          required=false,
+     *          in="query",
+     *          example=1,
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+	 * 		),
      *      @OA\Response(
      *          response=200,
      *          description="OK",
@@ -41,7 +105,11 @@ class BusinessServiceController extends Controller
      */
     public function index(BusinessProfile $businessProfile)
     {
-		return new BusinessServiceCollection($businessProfile->services);
+		$services = BusinessService::query()
+			->where('business_id', $businessProfile->id)
+			->paginate(request()->limit);
+
+		return new BusinessServiceCollection($services);
     }
 
     /**
