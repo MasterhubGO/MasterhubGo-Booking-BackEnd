@@ -17,6 +17,11 @@ class BusinessProfile extends Model
         'banner',
         'phone',
         'personal_site',
+        'address',
+        'email',
+        'profile_description',
+        'social_links',
+        'verified',
     ];
 
     public function owner()
@@ -29,8 +34,14 @@ class BusinessProfile extends Model
         return $this->belongsTo(BusinessRole::class, 'role_id');
     }
 
-    public function businessServices()
+
+    public function master()
     {
-        return $this->hasMany(BusinessService::class, 'business_id');
+        return $this->hasOne(Master::class, 'business_profile_id');
+    }
+
+    public function salon()
+    {
+        return $this->hasOne(Salon::class, 'business_profile_id');
     }
 }

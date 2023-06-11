@@ -1,4 +1,4 @@
-# MusterHub
+# MasterHub
 
 ## Project Instalation
 

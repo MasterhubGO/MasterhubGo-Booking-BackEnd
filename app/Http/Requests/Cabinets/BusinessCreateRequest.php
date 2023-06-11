@@ -30,7 +30,42 @@ class BusinessCreateRequest extends FormRequest
             'banner' => 'nullable|image|mimes:jpeg,png|max:5120',
             'phone' => ['nullable', 'string'],
             'personal_site' => ['nullable', 'string'],
-            'services' => ['required', 'array']
+            'address' => ['nullable', 'string'],
+            'email' => ['nullable', 'email'],
+            'profile_description' => ['nullable', 'string'],
+            'social_links' => ['nullable', 'string'],
+            'verified' => ['boolean'],
+
+            // Master validation
+            'first_name' => ['required_if:role_id,1', 'string'],
+            'last_name' => ['required_if:role_id,1', 'string'],
+            'personal_website' => ['nullable', 'string'],
+            'diploma_photos' => ['nullable', 'array', 'max:7'],
+            'diploma_photos.*' => ['nullable', 'image', 'mimes:jpeg,png', 'max:5120'],
+            'specialization' => ['nullable', 'string'],
+            'education' => ['nullable', 'string'],
+            'workplace' => ['nullable', 'string'],
+            'work_start_date' => ['nullable', 'date'],
+            'work_end_date' => ['nullable', 'date', 'after:work_start_date'],
+            'position' => ['nullable', 'string'],
+            'services' => ['required_if:role_id,1', 'string'],
+
+            // Salon validation
+            'salon_name' => ['required_if:role_id,2', 'string'],
+            'diploma_photos' => ['nullable', 'array', 'max:7'],
+            'diploma_photos.*' => ['nullable', 'image', 'mimes:jpeg,png', 'max:5120'],
+            'services' => ['required_if:role_id,2', 'array'],
+            'subscriptions' => ['nullable', 'string'],
+            'followers' => ['nullable', 'string'],
+            'reviews' => ['nullable', 'string'],
+            'rating' => ['nullable', 'string'],
+            'publications' => ['nullable', 'string'],
+            'promotions' => ['nullable', 'string'],
+            'personal_info' => ['nullable', 'string'],
+            'portfolio_count' => ['nullable', 'integer'],
+            'courses' => ['nullable', 'string'],
+            'employees' => ['nullable', 'string'],
+            'notifications' => ['nullable', 'string'],
         ];
     }
 }

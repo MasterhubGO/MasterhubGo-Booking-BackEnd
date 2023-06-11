@@ -11,11 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('business_services', function (Blueprint $table) {
+        Schema::create('coworking', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('serviceable_id');
-            $table->string('serviceable_type');
-            $table->string('service');
             $table->timestamps();
         });
     }
@@ -25,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('business_services');
+        Schema::dropIfExists('coworking');
     }
 };

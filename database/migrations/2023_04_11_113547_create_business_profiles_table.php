@@ -19,6 +19,11 @@ return new class extends Migration
             $table->string('banner')->nullable();
             $table->string('phone')->nullable();
             $table->string('personal_site')->nullable();
+            $table->string('address')->nullable();
+            $table->string('email')->nullable();
+            $table->string('profile_description')->nullable();
+            $table->string('social_links')->nullable();
+            $table->boolean('verified')->default(false);
             $table->timestamps();
         });
     }

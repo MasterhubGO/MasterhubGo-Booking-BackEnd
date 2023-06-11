@@ -1,10 +1,11 @@
 <?php
 
-use App\Http\Controllers\ImageController;
-use App\Http\Controllers\ProfileController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\ImageController;
+use App\Http\Controllers\ProfileController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -22,6 +23,7 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 
 Route::middleware('auth:sanctum')->group(function () {
 
+
     Route::apiResource('/personal-cabinet', \App\Http\Controllers\Cabinets\UserController::class)->only([
         'show', 'update', 'destroy', 'index'
     ]);
@@ -37,6 +39,3 @@ Route::post('/sendimage', [ImageController::class, 'store'])->name('image.store'
 
 Route::get('profile/{user}', [ProfileController::class, 'trackVisit'])->name('profile.visit');
 
-Route::middleware('auth:sanctum')->group(function () {
-    Route::apiResource('business-profile.comments', CommentController::class)->shallow();
-});
