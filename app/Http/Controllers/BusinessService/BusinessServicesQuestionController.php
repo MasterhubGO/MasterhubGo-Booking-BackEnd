@@ -11,6 +11,7 @@ use App\Http\Resources\BusinessService\BusinessServicesQuestionResource;
 use App\Models\BusinessService;
 use App\Models\BusinessServicesQuestion;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class BusinessServicesQuestionController extends Controller
 {
@@ -107,7 +108,9 @@ class BusinessServicesQuestionController extends Controller
     {
         $question = BusinessServicesQuestion::create($request->validated());
 
-		return (new BusinessServicesQuestionResource($question));
+		return (new BusinessServicesQuestionResource($question))
+			->response()
+			->setStatusCode(Response::HTTP_CREATED);
     }
 
     /**

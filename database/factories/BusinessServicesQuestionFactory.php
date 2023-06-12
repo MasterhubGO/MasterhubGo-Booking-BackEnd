@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\BusinessService;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +18,9 @@ class BusinessServicesQuestionFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'service_id' => BusinessService::inRandomOrder()->first()->id,
+			'question' => $this->faker->realTextBetween(15, 120),
+			'answer' => $this->faker->realTextBetween(50, 300),
         ];
     }
 }

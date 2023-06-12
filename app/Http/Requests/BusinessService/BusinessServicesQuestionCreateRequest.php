@@ -4,6 +4,8 @@ namespace App\Http\Requests\BusinessService;
 
 use App\Models\BusinessService;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Response;
+use Illuminate\Validation\ValidationException;
 
 class BusinessServicesQuestionCreateRequest extends FormRequest
 {
@@ -13,7 +15,12 @@ class BusinessServicesQuestionCreateRequest extends FormRequest
     public function authorize(): bool
     {
 		$service = BusinessService::find($this->route('service'));
-        return auth()->user()->businesses->pluck('id')->contains($service->businessProfile->id);
+
+		if (is_null($service)) {
+			throw ValidationException::withMessages(['service' => 'Service with id ' . $this->route('service') . ' not found']);
+		}
+
+        return auth()->id() === $service->user_id;
     }
 
     /**
@@ -24,7 +31,7 @@ class BusinessServicesQuestionCreateRequest extends FormRequest
     public function rules(): array
     {
         return [
-			'service_id' => ['required', 'exists:business_services,id'],
+			'service_id' => ['required'],
             'question' => ['required', 'string', 'min:5', 'max:3000'],
             'answer' => ['required', 'string', 'min:5', 'max:3000'],
         ];
